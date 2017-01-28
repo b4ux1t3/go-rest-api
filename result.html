@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Result for {{.Value}}</title>
+</head>
+<body>
+    <h1>Result for running Collatz on {{.Value}}</h1>
+    <div class="results">
+        <ul>
+            {{range .Steps}}
+                <li>{{.}}</li>
+            {{end}}
+        </ul>
+        <p>
+            It took {{len .Steps}} steps to get to 1.
+        </p>
+    </div>
+</body>
+</html>
