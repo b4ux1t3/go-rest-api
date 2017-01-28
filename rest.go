@@ -8,14 +8,21 @@ import (
 	"github.com/b4ux1t3/libgollatz"
 )
 
-var templates = template.Must(template.ParseFiles("result.html"))
+// RequestNumber doesn't need to exist, I'm just having issues figuring something out
+//TODO: Get rid of this
+type RequestNumber struct {
+	Num int
+}
+
+var templates = template.Must(template.ParseFiles("result.html", "index.html"))
 
 func collatzHandler(w http.ResponseWriter, r *http.Request) {
 	argumentIndex := len("/collatz/")
 	argument, err := strconv.ParseUint(r.URL.Path[argumentIndex:], 10, 64)
 
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Redirect(w, r, "/", http.StatusTemporaryRedirect)
+		//http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
@@ -31,8 +38,19 @@ func renderTemplate(w http.ResponseWriter, r libgollatz.Result) {
 	}
 }
 
+func rootHandler(w http.ResponseWriter, r *http.Request) {
+	var num RequestNumber
+	num.Num = 1337
+	err := templates.ExecuteTemplate(w, "index.html", num.Num)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+
+}
+
 func main() {
 	http.HandleFunc("/collatz/", collatzHandler)
+	http.HandleFunc("/", rootHandler)
 
 	http.ListenAndServe(":8080", nil)
 }
