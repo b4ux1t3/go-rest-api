@@ -25,3 +25,4 @@ _testmain.go
 
 # Text files for testing
 *.txt
+go-rest-api
