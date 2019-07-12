@@ -28,3 +28,4 @@ _testmain.go
 
 #Executable
 go-rest-api
+.vscode/launch.json
