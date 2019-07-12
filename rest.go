@@ -8,16 +8,6 @@ import (
 	"github.com/b4ux1t3/libgollatz"
 )
 
-// RequestNumber doesn't need to exist, I'm just having issues figuring something out
-// Update from future me: So, the problem is that the function ExecuteTemplate is
-// expecting a type with a data interface ,which a primative does not fulfill. There is
-// no good way around this as of right now, except to hardcode the input number into
-// the template.
-//TODO: Get rid of this
-type RequestNumber struct {
-	Num int
-}
-
 var templates = template.Must(template.ParseFiles("result.html", "index.html"))
 
 func collatzHandler(w http.ResponseWriter, r *http.Request) {
@@ -43,9 +33,8 @@ func collatzHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	var num RequestNumber
-	num.Num = 1337
-	err := templates.ExecuteTemplate(w, "index.html", num.Num)
+
+	err := templates.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
