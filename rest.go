@@ -9,6 +9,10 @@ import (
 )
 
 // RequestNumber doesn't need to exist, I'm just having issues figuring something out
+// Update from future me: So, the problem is that the function ExecuteTemplate is
+// expecting a type with a data interface ,which a primative does not fulfill. There is
+// no good way around this as of right now, except to hardcode the input number into
+// the template.
 //TODO: Get rid of this
 type RequestNumber struct {
 	Num int
@@ -28,11 +32,11 @@ func collatzHandler(w http.ResponseWriter, r *http.Request) {
 
 	result := libgollatz.Collatz(argument)
 
-	renderTemplate(w, result)
-}
-
-func renderTemplate(w http.ResponseWriter, r libgollatz.Result) {
-	err := templates.ExecuteTemplate(w, "result.html", r)
+	// This was broken out into a function, but as we are currently only
+	// serving to a browser, there's no reason to break it out. This is
+	// subject to change once we implement a proper REST API. Then, we
+	// can execute this based on seeing a browser user agent.
+	err = templates.ExecuteTemplate(w, "result.html", result)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
