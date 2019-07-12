@@ -14,7 +14,7 @@ Why not? It's a reasonably simple mathematical conjecture which is easy to imple
 
 It also gives us the potential to examine a few different endpoints, such as `steps` or `values`, if we want to only check the number of steps it takes to get to 1, or which individual values we hit on our way to 1. As such, we can see how we might operate on the same data set with multiple API methods.
 
-We also get the functionality of being able to generate different datasets based on different HTTP methods. For example, if I `GET` a value for `1337`, we can just do the algorithm and return the result down to the client. However, if we `PUSH` to the same endpoint, we can generate a cached copy of the algorithm's output.
+We also get the functionality of being able to generate different datasets based on different HTTP methods. For example, if I `GET` a value for `1337`, we can just do the algorithm and return the result down to the client. However, if we `POST` to the same endpoint, we can generate a cached copy of the algorithm's output.
 
 So, if we request `GET /collatz/1337`, we'll receive a JSON object containing our values and the number of steps:
 
@@ -24,7 +24,7 @@ So, if we request `GET /collatz/1337`, we'll receive a JSON object containing ou
         steps: 44
     }
 
-However, if we `PUSH /collatz/1337`, the server would store the result of the algorithm to a database, and the client would receive a pointer to that entry.
+However, if we `POST /collatz/1337`, the server would store the result of the algorithm to a database, and the client would receive a pointer to that entry.
 
 ## But it doesn't do any of that right now!
 
