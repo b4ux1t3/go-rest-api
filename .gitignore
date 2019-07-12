@@ -25,4 +25,6 @@ _testmain.go
 
 # Text files for testing
 *.txt
+
+#Executable
 go-rest-api
