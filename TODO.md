@@ -1,6 +1,6 @@
 # //TODO:
 
-Items here may or may not have a GitHub issue associated with them. That's simply because I'm working on this on my own right now.I guess maybe I'll replace this with issues as time moves on.
+Items here may or may not have a GitHub issue associated with them. That's simply because I'm working on this on my own right now. I guess maybe I'll replace this with issues as time moves on.
 
 ## Return JSON instead of a web page.
 Currently, we're returning a templated web page to the client when they send us a `GET`. That's not a REST API. Incidentally, this will resolve #1, since we will no longer be delivering a web page to the client. But we still want a front end, which brings us to:
