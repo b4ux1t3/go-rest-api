@@ -1,6 +1,6 @@
 # REST in Go
 
-This is a simple project that I'm using as a demonstartion of implementing RESTful APIs in Go. This will be a toy implementation, but a fully "standards-compliant" implementation.
+This is a simple project that I'm using as a demonstration of implementing RESTful APIs in Go. This will be a toy implementation, but a fully "standards-compliant" implementation.
 
 Right now, the only thing this program can do is handle requests for the `/collatz/` API endpoint and spit out a compiled template with the results of whatever is passed into the path after `/collatz/`. 
 
