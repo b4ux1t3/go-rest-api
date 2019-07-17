@@ -1,0 +1,6 @@
+{
+    "Port":    "8080",
+    "IP": "",
+    "ResTmpl": "./result.html",
+    "IndTmpl": "./index.html"
+}

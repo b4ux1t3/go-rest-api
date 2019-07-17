@@ -5,10 +5,13 @@ import (
 	"net/http"
 	"strconv"
 
+	"./config"
+
 	"github.com/b4ux1t3/libgollatz"
 )
 
-var templates = template.Must(template.ParseFiles("result.html", "index.html"))
+var configuration config.Configuration
+var templates *template.Template
 
 func collatzHandler(w http.ResponseWriter, r *http.Request) {
 	argumentIndex := len("/collatz/")
@@ -48,16 +51,16 @@ func collatzHandler(w http.ResponseWriter, r *http.Request) {
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 
-	err := templates.ExecuteTemplate(w, "index.html", nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
+	http.ServeFile(w, r, configuration.IndTmpl)
 
 }
 
 func main() {
+	configuration := config.LoadConfig("config/config.json")
+	templates = template.Must(template.ParseFiles(configuration.ResTmpl, configuration.IndTmpl))
+
 	http.HandleFunc("/collatz/", collatzHandler)
 	http.HandleFunc("/", rootHandler)
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(configuration.IP+":"+configuration.Port, nil)
 }
